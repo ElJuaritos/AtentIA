@@ -1,0 +1,10 @@
+# SPA fallback para GitHub Pages (rutas de ancla funcionan desde index)
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0;url=/" />
+    <script>window.location.replace(document.location.origin + document.location.pathname.replace(/\/[^/]*$/, '/') );</script>
+  </head>
+  <body></body>
+</html>

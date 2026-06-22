@@ -1,0 +1,15 @@
+# Despliegue del API en Render
+# https://render.com — New Web Service → conecta el repo, rootDir: server
+
+services:
+  - type: web
+    name: mati-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        sync: false
