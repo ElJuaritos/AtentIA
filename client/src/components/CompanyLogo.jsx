@@ -1,10 +1,14 @@
 /**
- * Marca corporativa AtentIA — usada en footer y créditos legales.
+ * Marca corporativa AtentIA — imagen usada en footer y créditos legales.
  */
+import { logoAtentia } from '../assets/brandImages';
+
 export default function CompanyLogo({ className = '' }) {
   return (
-    <span className={`font-heading font-extrabold tracking-tight ${className}`}>
-      Atent<span className="text-coral">IA</span>
-    </span>
+    <img
+      src={logoAtentia}
+      alt="AtentIA"
+      className={`h-6 w-auto object-contain inline-block align-middle ${className}`}
+    />
   );
 }

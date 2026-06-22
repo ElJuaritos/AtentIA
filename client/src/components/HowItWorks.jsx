@@ -10,7 +10,7 @@ const STEPS = [
   {
     icon: Layers,
     title: 'Elige un módulo',
-    desc: 'Descarga cuentos, paquetes de matemáticas o lecciones de idiomas desde la app.',
+    desc: 'Descarga lecciones, paquetes de matemáticas o unidades de idiomas desde la app.',
   },
   {
     icon: Volume2,

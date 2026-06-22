@@ -3,7 +3,7 @@
  */
 import { motion } from 'framer-motion';
 import { Mic, BookOpen, Globe, BarChart3 } from 'lucide-react';
-import DeviceMockup from './DeviceMockup';
+import { mvpProducto } from '../assets/brandImages';
 import AuroraBackground from './AuroraBackground';
 import IconBox from './IconBox';
 
@@ -105,7 +105,13 @@ export default function Hero() {
           className="order-1 lg:order-2 relative flex flex-col items-center"
         >
           <div className="relative flex justify-center w-full max-w-[280px] sm:max-w-none">
-            <DeviceMockup size="lg" />
+            <motion.img
+              src={mvpProducto}
+              alt="Dispositivo MatIA — aprendizaje sin pantalla"
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-full max-w-[16rem] sm:max-w-xs md:max-w-sm lg:max-w-md h-auto object-contain drop-shadow-lg"
+            />
 
             {BADGES.map((badge, i) => (
               <motion.div

@@ -1,13 +1,17 @@
 /**
- * Logo del producto Mati — usado en navbar y secciones del dispositivo.
+ * Logo del producto MatIA — tipografía y estrellas, usado en navbar y footer.
  */
 import { Sparkles } from 'lucide-react';
 
-export default function Logo({ className = '', iconClassName = 'w-4 h-4 text-coral', showByline = false }) {
+export default function Logo({
+  className = '',
+  iconClassName = 'w-4 h-4 text-coral',
+  showByline = false,
+}) {
   return (
     <span className={`inline-flex flex-col ${className}`}>
       <span className="inline-flex items-center gap-1.5 font-heading font-extrabold">
-        Mati
+        MatIA
         <Sparkles className={iconClassName} strokeWidth={2.5} />
       </span>
       {showByline && (

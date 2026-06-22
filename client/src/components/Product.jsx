@@ -6,7 +6,7 @@ import {
   Headphones, Bot, Download, Smartphone, Shield, WifiOff,
 } from 'lucide-react';
 import SectionWrapper, { staggerContainer, staggerItem } from './SectionWrapper';
-import DeviceMockup from './DeviceMockup';
+import { mvpProducto } from '../assets/brandImages';
 import IconBox from './IconBox';
 
 const FEATURES = [
@@ -42,7 +42,11 @@ export default function Product() {
             transition={{ duration: 0.7 }}
             className="flex justify-center order-1 md:order-none"
           >
-            <DeviceMockup size="xl" glow />
+            <img
+              src={mvpProducto}
+              alt="Dispositivo MatIA — aprendizaje sin pantalla"
+              className="w-full max-w-[16rem] sm:max-w-xs md:max-w-sm lg:max-w-md h-auto object-contain drop-shadow-lg"
+            />
           </motion.div>
 
           <motion.ul
