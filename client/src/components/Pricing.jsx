@@ -1,81 +1,72 @@
 /**
- * Precios — dos planes con toggle mensual/anual y hover lift.
+ * Precios — tres opciones: dispositivo MatIA, suscripción y lecciones por tema.
  */
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper, { staggerContainer, staggerItem } from './SectionWrapper';
-import { Check, Star } from 'lucide-react';
+import { Check, Star, Info } from 'lucide-react';
 
 const PLANS = [
   {
-    name: 'Mati Starter',
-    devicePrice: 1499,
-    monthlyPrice: 149,
+    name: 'MatIA',
+    price: 1999,
+    priceNote: 'dispositivo',
+    badge: '1 mes de suscripción gratis',
+    popular: true,
     features: [
-      'Acceso completo a todos los cuentos',
-      'Hasta 30 preguntas al día a Mati',
-      'App para padres con reportes',
+      'Dispositivo MatIA',
+      '1 mes gratis de suscripción incluido',
+      'Contenido ilimitado',
+      'Preguntas ilimitadas a Mati',
+      'Insights de todas las lecciones',
     ],
-    popular: false,
+    freeMonthNote:
+      'Durante el mes gratis solo se guarda una lección iniciada; las demás temáticas se compran por separado.',
   },
   {
-    name: 'Mati Unlimited',
-    devicePrice: 1499,
-    monthlyPrice: 299,
+    name: 'Suscripción',
+    price: 179,
+    priceNote: '/mes',
+    popular: false,
     features: [
-      'Acceso completo a todos los cuentos',
+      'Contenido ilimitado',
       'Preguntas ilimitadas a Mati',
-      'App para padres con reportes',
+      'Insights de todas las lecciones',
     ],
-    popular: true,
+  },
+  {
+    name: 'Lección por tema',
+    price: 89,
+    priceNote: 'por tema',
+    subtitle: 'Ej. solo matemáticas',
+    popular: false,
+    features: [
+      'Contenido del tema elegido',
+      'Preguntas limitadas a Mati del tema',
+      'Insights solo de las lecciones compradas',
+    ],
   },
 ];
 
+function formatPrice(value) {
+  return `$${value.toLocaleString('es-MX')} MXN`;
+}
+
 export default function Pricing() {
-  const [annual, setAnnual] = useState(false);
-
-  const getMonthlyDisplay = (price) => {
-    if (!annual) return price;
-    return Math.round((price * 10) / 12);
-  };
-
   return (
     <SectionWrapper id="precios" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 md:px-8 bg-offwhite">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-10"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
         >
           <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy mb-3 sm:mb-4 px-2">
             Precios simples. Sin sorpresas.
           </h2>
-          <p className="text-text/60 text-sm sm:text-base max-w-lg mx-auto mb-5 sm:mb-6 px-2">
-            Mismo contenido en ambos planes. Elige según cuántas preguntas quiera hacer tu hijo al día.
+          <p className="text-text/60 text-sm sm:text-base max-w-2xl mx-auto px-2">
+            Elige el dispositivo con mes gratis, la suscripción completa o una lección individual por tema.
           </p>
-
-          <div className="inline-flex flex-col xs:flex-row items-stretch xs:items-center gap-2 xs:gap-3 bg-white rounded-2xl xs:rounded-full p-2 sm:p-1.5 shadow-soft w-full xs:w-auto max-w-xs xs:max-w-none mx-auto">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-4 sm:px-5 py-2.5 sm:py-2 rounded-xl xs:rounded-full text-sm font-semibold transition-colors ${
-                !annual ? 'bg-navy text-white' : 'text-text/60 hover:bg-navy/5'
-              }`}
-            >
-              Mensual
-            </button>
-            <button
-              onClick={() => setAnnual(true)}
-              className={`px-4 sm:px-5 py-2.5 sm:py-2 rounded-xl xs:rounded-full text-sm font-semibold transition-colors ${
-                annual ? 'bg-navy text-white' : 'text-text/60 hover:bg-navy/5'
-              }`}
-            >
-              Anual
-              <span className="block xs:inline xs:ml-1 text-xs text-olive font-bold mt-0.5 xs:mt-0">
-                2 meses gratis
-              </span>
-            </button>
-          </div>
         </motion.div>
 
         <motion.div
@@ -83,75 +74,85 @@ export default function Pricing() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-8 sm:mb-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-8 sm:mb-10"
         >
           {PLANS.map((plan) => (
             <motion.div
               key={plan.name}
               variants={staggerItem}
               whileHover={{ y: -4 }}
-              className={`relative bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 shadow-soft border-2 transition-shadow hover:shadow-lg ${
-                plan.popular ? 'border-coral' : 'border-transparent'
+              className={`relative flex flex-col bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 shadow-soft border-2 transition-shadow hover:shadow-lg ${
+                plan.popular ? 'border-coral lg:scale-[1.02]' : 'border-transparent'
               }`}
             >
               {plan.popular && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-olive text-white text-xs font-bold px-3 sm:px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
-                  <Star size={12} fill="white" /> Popular
+                  <Star size={12} fill="white" /> Recomendado
                 </span>
               )}
 
-              <h3 className="font-heading font-bold text-lg sm:text-xl text-navy mb-3 sm:mb-4 mt-1">{plan.name}</h3>
+              {plan.badge && (
+                <span className="inline-block self-start bg-coral/10 text-coral text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                  {plan.badge}
+                </span>
+              )}
+
+              <h3 className="font-heading font-bold text-lg sm:text-xl text-navy mb-1">{plan.name}</h3>
+
+              {plan.subtitle && (
+                <p className="text-text/50 text-xs sm:text-sm mb-3">{plan.subtitle}</p>
+              )}
 
               <div className="mb-5 sm:mb-6">
-                <p className="text-text/60 text-xs sm:text-sm">
-                  Dispositivo{' '}
-                  <span className="font-bold text-navy">${plan.devicePrice.toLocaleString('es-MX')} MXN</span>
+                <p className="font-heading font-extrabold text-2xl sm:text-3xl text-navy">
+                  {formatPrice(plan.price)}
                 </p>
-                <p className="mt-2">
-                  <span className="font-heading font-extrabold text-2xl sm:text-3xl text-navy">
-                    ${getMonthlyDisplay(plan.monthlyPrice).toLocaleString('es-MX')}
-                  </span>
-                  <span className="text-text/50 text-sm"> /mes</span>
-                </p>
-                {annual && (
-                  <p className="text-olive text-xs font-semibold mt-1">
-                    Facturado anualmente — ahorras 2 meses
-                  </p>
-                )}
+                <p className="text-text/50 text-sm mt-1">{plan.priceNote}</p>
               </div>
 
-              <ul className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs sm:text-sm text-text/70">
+              <ul className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-5 flex-1">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 text-xs sm:text-sm text-text/70">
                     <Check size={16} className="text-olive shrink-0 mt-0.5" strokeWidth={3} />
-                    {f}
+                    {feature}
                   </li>
                 ))}
               </ul>
 
+              {plan.freeMonthNote && (
+                <p className="flex items-start gap-2 text-xs text-text/55 bg-navy/5 rounded-xl p-3 mb-4 sm:mb-5">
+                  <Info size={14} className="text-coral shrink-0 mt-0.5" />
+                  {plan.freeMonthNote}
+                </p>
+              )}
+
               <a
                 href="#waitlist"
-                className={`block text-center py-3 rounded-full font-semibold text-sm transition-shadow ${
+                className={`block text-center py-3 rounded-full font-semibold text-sm transition-shadow mt-auto ${
                   plan.popular
                     ? 'bg-olive text-white hover:shadow-olive'
                     : 'bg-navy/5 text-navy hover:bg-navy/10'
                 }`}
               >
-                Reservar ahora
+                Lista de espera
               </a>
             </motion.div>
           ))}
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center text-navy font-semibold text-sm sm:text-base px-4"
+          className="text-center px-4"
         >
-          Pre-orden ahora — Las primeras 100 familias reciben{' '}
-          <span className="text-coral">3 meses gratis</span>
-        </motion.p>
+          <a
+            href="#waitlist"
+            className="inline-flex items-center justify-center bg-navy text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold text-sm sm:text-base hover:bg-navy/90 transition-colors"
+          >
+            Entra a la lista de espera
+          </a>
+        </motion.div>
       </div>
     </SectionWrapper>
   );

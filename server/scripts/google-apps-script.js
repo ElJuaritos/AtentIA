@@ -1,13 +1,22 @@
 /**
  * Google Apps Script — copiar en Extensiones → Apps Script de tu hoja.
  *
- * 1. Cambia SHEET_SECRET por el mismo valor que GOOGLE_SHEETS_SECRET en .env
+ * 1. Cambia SHEET_SECRET por el mismo valor que GOOGLE_SHEETS_SECRET en Render
  * 2. Implementar → Nueva implementación → Aplicación web
  * 3. Ejecutar como: Yo | Acceso: Cualquier persona
- * 4. Copia la URL /exec a GOOGLE_SHEETS_WEBHOOK_URL
+ * 4. Copia la URL /exec a GOOGLE_SHEETS_WEBHOOK_URL en Render
  */
 
-const SHEET_SECRET = 'AtentIA-Mati-2026-k7Xm9pQ2vL8nR4tW6yH1zF5';
+// Debe coincidir EXACTAMENTE con GOOGLE_SHEETS_SECRET en Render
+const SHEET_SECRET = 'CAMBIA_ESTE_SECRET';
+
+/** Crea la fila de encabezados si la hoja está vacía. */
+function ensureHeaders(sheet) {
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Email', 'Nombre', 'Fecha (UTC)', 'Posición']);
+    sheet.getRange(1, 1, 1, 4).setFontWeight('bold');
+  }
+}
 
 function doPost(e) {
   try {
@@ -20,6 +29,7 @@ function doPost(e) {
     }
 
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    ensureHeaders(sheet);
     sheet.appendRow([
       data.email || '',
       data.name || '',

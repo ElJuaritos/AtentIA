@@ -80,5 +80,10 @@ app.use((err, _req, res, _next) => {
 });
 
 app.listen(PORT, () => {
+  const sheetsReady = Boolean(
+    process.env.GOOGLE_SHEETS_WEBHOOK_URL?.trim()
+    && process.env.GOOGLE_SHEETS_SECRET?.trim(),
+  );
   console.log(`Mati API (AtentIA) running on port ${PORT} [${isProd ? 'production' : 'development'}]`);
+  console.log(`Google Sheets: ${sheetsReady ? 'conectado' : 'no configurado (solo waitlist.json)'}`);
 });
