@@ -1,9 +1,14 @@
 /**
- * Sección para padres — mockup de app móvil y beneficios con checkmarks.
+ * Sección para padres — capturas reales de la app y beneficios con checkmarks.
  */
 import { motion } from 'framer-motion';
-import { Check, Flame } from 'lucide-react';
+import { Check } from 'lucide-react';
 import SectionWrapper, { staggerContainer, staggerItem } from './SectionWrapper';
+import {
+  appControlPadres,
+  appDashboardPadres,
+  appEstadisticasPadres,
+} from '../assets/brandImages';
 
 const FEATURES = [
   'Ve exactamente qué escuchó tu hijo hoy',
@@ -13,59 +18,47 @@ const FEATURES = [
   'Recibe reportes semanales de aprendizaje',
 ];
 
-/** Mockup CSS de la app para padres en un teléfono. */
-function PhoneMockup() {
+/** Capturas de la app para padres con título descriptivo. */
+const APP_SCREENS = [
+  {
+    src: appDashboardPadres,
+    title: 'Panel familiar',
+    alt: 'Panel familiar con racha, lecciones y actividad semanal',
+  },
+  {
+    src: appEstadisticasPadres,
+    title: 'Reportes',
+    alt: 'Reportes de evolución por materia y conceptos dominados',
+  },
+  {
+    src: appControlPadres,
+    title: 'Controles parentales',
+    alt: 'Controles parentales con límite diario y horarios permitidos',
+  },
+];
+
+/** Tarjeta de captura con marco tipo teléfono. */
+function AppScreenCard({ screen, index }) {
   return (
-    <div className="relative mx-auto w-full max-w-[220px] xs:max-w-[240px] sm:max-w-[260px] md:max-w-[280px]">
-      <div className="bg-navy rounded-[2rem] sm:rounded-[2.5rem] p-2.5 sm:p-3 shadow-soft">
-        <div className="bg-offwhite rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden">
-          <div className="bg-navy px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between">
-            <span className="text-white font-heading font-bold text-xs sm:text-sm">Mati App</span>
-            <span className="text-mint text-[10px] sm:text-xs flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-mint" /> En línea
-            </span>
-          </div>
-
-          <div className="p-3 sm:p-4 space-y-3 sm:space-y-4">
-            <div>
-              <p className="text-[10px] sm:text-xs text-text/50 mb-1">Hoy — Sofía, 6 años</p>
-              <div className="h-1.5 sm:h-2 bg-navy/10 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: '72%' }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, delay: 0.3 }}
-                  className="h-full bg-mint rounded-full"
-                />
-              </div>
-              <p className="text-[10px] sm:text-xs text-text/60 mt-1">72% meta diaria</p>
-            </div>
-
-            <div className="flex gap-2 sm:gap-3">
-              <div className="flex-1 bg-coral/10 rounded-lg sm:rounded-xl p-2 sm:p-3 text-center">
-                <p className="font-heading font-extrabold text-xl sm:text-2xl text-coral">12</p>
-                <p className="text-[9px] sm:text-[10px] text-text/50 flex items-center justify-center gap-0.5">
-                  días de racha <Flame size={10} className="text-coral" />
-                </p>
-              </div>
-              <div className="flex-1 bg-mint/10 rounded-lg sm:rounded-xl p-2 sm:p-3 text-center">
-                <p className="font-heading font-extrabold text-xl sm:text-2xl text-mint">3</p>
-                <p className="text-[9px] sm:text-[10px] text-text/50">cuentos hoy</p>
-              </div>
-            </div>
-
-            <div className="space-y-1.5 sm:space-y-2">
-              {['El principito', 'Sumas divertidas', 'Animales del bosque'].map((item) => (
-                <div key={item} className="flex items-center gap-2 bg-white rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 shadow-sm">
-                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-mint shrink-0" />
-                  <span className="text-[10px] sm:text-xs text-text/70 truncate">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    <motion.figure
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.12 }}
+      className="shrink-0 w-[148px] xs:w-[168px] sm:w-[190px] md:w-[210px] lg:w-full snap-center"
+    >
+      <div className="rounded-[1.6rem] sm:rounded-[1.85rem] overflow-hidden border-[3px] border-navy/10 shadow-soft bg-white">
+        <img
+          src={screen.src}
+          alt={screen.alt}
+          loading="lazy"
+          className="w-full h-auto object-cover object-top"
+        />
       </div>
-    </div>
+      <figcaption className="text-center text-xs sm:text-sm text-navy/60 mt-2.5 sm:mt-3 font-medium">
+        {screen.title}
+      </figcaption>
+    </motion.figure>
   );
 }
 
@@ -77,27 +70,37 @@ export default function ForParents() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy text-center mb-10 sm:mb-14 px-2"
+          className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy text-center mb-4 sm:mb-6 px-2"
         >
           Tú tienes el control. <span className="text-coral">Siempre.</span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center"
-          >
-            <PhoneMockup />
-          </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-text/60 text-sm sm:text-base text-center max-w-2xl mx-auto mb-10 sm:mb-14 px-2"
+        >
+          La app para padres te muestra el progreso, los reportes y los límites de uso en un solo lugar.
+        </motion.p>
 
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-14 items-center">
+          {/* Capturas de la app */}
+          <div className="order-2 lg:order-1">
+            <div className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto pb-3 snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0 -mx-1 px-1">
+              {APP_SCREENS.map((screen, index) => (
+                <AppScreenCard key={screen.title} screen={screen} index={index} />
+              ))}
+            </div>
+          </div>
+
+          {/* Beneficios */}
           <motion.ul
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="space-y-3 sm:space-y-4"
+            className="space-y-3 sm:space-y-4 order-1 lg:order-2"
           >
             {FEATURES.map((feature) => (
               <motion.li
