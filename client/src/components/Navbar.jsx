@@ -69,7 +69,7 @@ export default function Navbar() {
             onClick={() => scrollTo('#waitlist')}
             className="bg-olive text-white px-5 md:px-6 py-2 md:py-2.5 rounded-full text-sm font-semibold hover:shadow-olive transition-shadow whitespace-nowrap"
           >
-            Acceso anticipado
+            Lista de espera
           </button>
         </div>
 
@@ -107,7 +107,7 @@ export default function Navbar() {
                   onClick={() => scrollTo('#waitlist')}
                   className="w-full bg-olive text-white px-6 py-3.5 rounded-full font-semibold text-base"
                 >
-                  Acceso anticipado
+                  Lista de espera
                 </button>
               </li>
             </ul>
