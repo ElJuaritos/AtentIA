@@ -3,7 +3,7 @@
  */
 import { motion } from 'framer-motion';
 import { Mic, BookOpen, Globe, BarChart3 } from 'lucide-react';
-import matIAProducto from '../assets/MATIA-FNAL-Photoroom.png';
+import { matIAProducto } from '../assets/brandImages';
 import AuroraBackground from './AuroraBackground';
 import IconBox from './IconBox';
 
