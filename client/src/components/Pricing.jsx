@@ -15,9 +15,6 @@ const PLANS = [
     features: [
       'Dispositivo MatIA',
       '1 mes gratis de suscripción incluido',
-      'Contenido ilimitado',
-      'Preguntas ilimitadas a Mati',
-      'Insights de todas las lecciones',
     ],
     freeMonthNote:
       'Durante el mes gratis solo se guarda una lección iniciada; las demás temáticas se compran por separado.',
@@ -34,10 +31,10 @@ const PLANS = [
     ],
   },
   {
-    name: 'Lección por tema',
+    name: 'Precio por tema',
     price: 89,
     priceNote: 'por tema',
-    subtitle: 'Ej. solo matemáticas',
+    subtitle: 'Ej. solo matemáticas básicas',
     popular: false,
     features: [
       'Contenido del tema elegido',
@@ -152,6 +149,10 @@ export default function Pricing() {
           >
             Entra a la lista de espera
           </a>
+          <p className="mt-4 sm:mt-5 text-navy font-semibold text-sm sm:text-base">
+            Los primeros 100 en la lista de espera ganan{' '}
+            <span className="text-coral">3 meses gratis</span> de suscripción
+          </p>
         </motion.div>
       </div>
     </SectionWrapper>
