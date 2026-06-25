@@ -142,7 +142,7 @@ export default function Waitlist() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full xs:w-auto shrink-0 bg-coral text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold text-sm sm:text-base hover:shadow-coral transition-shadow disabled:opacity-60 whitespace-nowrap"
+              className="w-full xs:w-auto shrink-0 bg-olive text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-semibold text-sm sm:text-base hover:shadow-olive transition-shadow disabled:opacity-60 whitespace-nowrap"
             >
               {loading ? 'Enviando...' : 'Unirme a la lista'}
             </button>
@@ -168,7 +168,7 @@ export default function Waitlist() {
           <span className="hidden xs:inline text-white/30">·</span>
           <span className="text-white/70 text-center xs:text-left">
             Únete a{' '}
-            <span className="font-heading font-bold text-gold">{displayCount.toLocaleString('es-MX')}</span>{' '}
+            <span className="font-heading font-bold text-mint">{displayCount.toLocaleString('es-MX')}</span>{' '}
             familias en espera.
           </span>
         </motion.p>

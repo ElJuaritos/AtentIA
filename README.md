@@ -62,11 +62,13 @@
 
 ### Modelo de negocio (precios ilustrativos)
 
-| Concepto | Precio |
-|----------|--------|
-| Dispositivo | ~1,499 MXN (one-time) |
-| Suscripción Starter | 149 MXN/mes (1 lección activa) |
-| Suscripción Unlimited | 299 MXN/mes (hasta 3 lecciones + IA avanzada) |
+| Concepto | Precio | Incluye |
+|----------|--------|---------|
+| Dispositivo | ~1,499 MXN (one-time) | Hardware matIA |
+| Suscripción Starter | 149 MXN/mes | Todos los cuentos + **30 preguntas/día** a la IA |
+| Suscripción Unlimited | 299 MXN/mes | Todos los cuentos + **preguntas ilimitadas** a la IA |
+
+> **El único diferenciador entre planes es el límite diario de preguntas a Mati.** Ambos incluyen acceso completo al catálogo de cuentos y app de padres con reportes.
 
 **Beachhead:** hogares premium en México (CDMX) → media → Latinoamérica (ventaja de contenido en español).
 
@@ -164,7 +166,7 @@ Hola Claude. Continúo un proyecto de emprendimiento; aquí está todo el contex
 
 SOY: León, equipo de bootcamp del ITAM. Empresa AtentIA, producto matIA. El ganador va al MIT (Delta V); el pitch final es en INGLÉS ante jurado. Prefiero respuestas concisas y directas.
 
-PRODUCTO matIA: consola educativa audio-first con tutor de IA para niños de 5 a 10 años, estilo retro (Game Boy/Yoto). Pantalla e-ink (tipo Kindle, sin luz). Botón push-to-talk (mic solo al presionar = privacidad). Modelo híbrido: contenido offline tipo cartucho (tarjetas físicas) + IA generativa online. IA acotada (RAG, sin web abierta), sin cámara, carcasa sellada con disipador. App de padres con reportes de aprendizaje. Pedagogía: recall activo + repetición espaciada, sin mecánicas de brain rot. Precio: dispositivo ~1,499 MXN + suscripción Starter 149/Unlimited 299 MXN/mes. Beachhead: hogares premium en México.
+PRODUCTO matIA: consola educativa audio-first con tutor de IA para niños de 5 a 10 años, estilo retro (Game Boy/Yoto). Pantalla e-ink (tipo Kindle, sin luz). Botón push-to-talk (mic solo al presionar = privacidad). Modelo híbrido: contenido offline tipo cartucho (tarjetas físicas) + IA generativa online. IA acotada (RAG, sin web abierta), sin cámara, carcasa sellada con disipador. App de padres con reportes de aprendizaje. Pedagogía: recall activo + repetición espaciada, sin mecánicas de brain rot. Precio: dispositivo ~1,499 MXN + suscripción Starter 149 MXN/mes (todos los cuentos, 30 preguntas/día a la IA) o Unlimited 299 MXN/mes (todos los cuentos, preguntas ilimitadas). Beachhead: hogares premium en México.
 
 MERCADO: TAM ~187 mil M USD (EdTech global); TAM operativo ~18 mil M (juguetes inteligentes + tutores IA). SAM ~3.2 mil M USD (audio para niños; validado por Tonies ~519M y Yoto ~128M en 2024). SOM México premium: EdTech MX 4.4 mil M (2024), ~12.9M niños 6-11; captura temprana ~1.9-3.8M USD/año.
 

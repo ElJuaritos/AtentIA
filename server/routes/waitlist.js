@@ -6,6 +6,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { isValidEmail, sanitizeName, normalizeEmail } from '../utils/validation.js';
+import { appendToGoogleSheet } from '../services/googleSheets.js';
 
 const router = Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -62,6 +63,8 @@ router.post('/', async (req, res) => {
 
     waitlist.push(entry);
     await writeWaitlist(waitlist);
+
+    await appendToGoogleSheet(entry, waitlist.length);
 
     res.json({ success: true, position: waitlist.length });
   } catch (error) {

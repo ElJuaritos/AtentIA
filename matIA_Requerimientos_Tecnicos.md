@@ -12,7 +12,7 @@
 5. [APIs y LLMs requeridos](#5-apis-y-llms-requeridos)
 6. [Flujo estructurado de sesión pedagógica](#6-flujo-estructurado-de-sesión-pedagógica)
 7. [Hardware y firmware](#7-hardware-y-firmware)
-8. [Backend y base de datos](#8-backend-y-base-de-datos)
+8. [Backend y base de datos](#8-backend-y-base-de-datos) — incluye §8.0 modelo de suscripción y límites
 9. [App de padres](#9-app-de-padres)
 10. [Modo offline](#10-modo-offline)
 11. [Seguridad, privacidad y compliance](#11-seguridad-privacidad-y-compliance)
@@ -59,7 +59,7 @@ Este es el ciclo completo desde que el niño presiona el botón hasta que escuch
 [Moderación de salida — OpenAI Moderation API]
         │
         ▼
-[TTS — ElevenLabs voz custom "Mati"] → audio MP3
+[TTS — OpenAI TTS voz "nova"] → audio MP3
         │
         ▼
 [Bocina reproduce audio]
@@ -88,12 +88,11 @@ Desglose estimado: STT ~400ms · LLM ~800ms · TTS ~600ms · red ~400ms.
 
 | API | Razón de elección |
 |-----|------------------|
-| **ElevenLabs** | Permite clonar/diseñar una voz custom consistente para "Mati". Soporta emociones (alegre, alentador, sorprendido). La voz de Mati se mantiene igual en todos los cartuchos |
+| **OpenAI TTS** (`tts-1`, voz `nova`) | Mismo proveedor que Whisper y LLM; bajo costo (~$15/1M chars); tono cálido adecuado para personaje infantil |
 
-- Se diseña **una sola voz** para Mati: tono cálido, neutro-MX, ligero dinamismo
-- Parámetro `stability: 0.7`, `similarity_boost: 0.8` (consistente pero natural)
+- Voz fija `nova` para Mati en MVP (cálida, consistente en todos los cartuchos)
 - Output: MP3 → reproducido en bocina del dispositivo
-- Alternativa de costo más bajo: **OpenAI TTS** (`tts-1`, voz `nova`) si el presupuesto lo requiere
+- Alternativa futura: **ElevenLabs** (voz custom clonada) cuando el volumen justifique el costo extra
 
 ### 2.3 Consideraciones de audio en hardware
 
@@ -242,7 +241,7 @@ Los niños son creativos. Ejemplos comunes y cómo los maneja el prompt:
 |----------|----------------|-----|------------------|
 | **STT** | OpenAI Whisper | Transcripción de voz del niño | `whisper-1` |
 | **LLM** | OpenAI GPT-4o-mini | Generación de respuestas | `gpt-4o-mini` |
-| **TTS** | ElevenLabs | Voz custom de Mati | Starter plan |
+| **TTS** | OpenAI TTS | Voz de Mati (voz `nova`) | `tts-1` |
 | **Embeddings** | OpenAI | Vectorización del contenido de cartuchos | `text-embedding-3-small` |
 | **Vector DB** | Supabase pgvector | Almacén y búsqueda de contenido RAG | Supabase Pro |
 | **Moderación** | OpenAI Moderation | Filtro de entrada y salida | `omni-moderation-latest` |
@@ -395,6 +394,34 @@ La pantalla solo se actualiza entre respuestas (no en tiempo real) para preserva
 
 ## 8. Backend y base de datos
 
+### 8.0 Modelo de suscripción y límites
+
+Ambos planes (**Starter** 149 MXN/mes, **Unlimited** 299 MXN/mes) incluyen acceso completo a todos los cuentos. **El único diferenciador es el límite diario de preguntas a la IA.**
+
+| Plan | Preguntas IA/día | Contenido |
+|------|------------------|-----------|
+| `starter` | **30** (hard limit) | Todos los cuentos |
+| `unlimited` | Sin tope | Todos los cuentos |
+
+**Implementación en backend:**
+
+1. Cada niño tiene `plan_type` vinculado a la suscripción del padre
+2. Contador `daily_ai_questions` se incrementa en cada `POST /api/session/query` exitoso
+3. Reset diario a medianoche (timezone `America/Mexico_City`)
+4. **Antes** de llamar a Whisper/LLM: si `plan_type === 'starter'` y `daily_ai_questions >= 30` → devolver audio TTS predefinido: *"¡Hoy ya hicimos muchas preguntas! Mañana seguimos aprendiendo."*
+5. Unlimited: sin verificación de tope
+
+```js
+// Pseudocódigo en /api/session/query
+if (child.plan_type === 'starter' && child.daily_ai_questions >= 30) {
+  return { audio: LIMIT_REACHED_MP3, expression: 'sleepy' };
+}
+// ... pipeline STT → LLM → TTS
+await incrementDailyQuestionCount(child.id);
+```
+
+---
+
 ### 8.1 Estructura del backend (ya existe en `/AtentIA/server`)
 
 Se extiende el servidor Node.js existente con las siguientes rutas nuevas:
@@ -411,6 +438,16 @@ POST   /api/parent/limits          → configura límites de tiempo y cartuchos 
 ### 8.2 Esquema de base de datos (Supabase)
 
 ```sql
+-- Suscripción del padre (define plan del dispositivo)
+subscriptions (
+  id UUID PRIMARY KEY,
+  parent_id UUID REFERENCES parents(id),
+  plan_type TEXT CHECK (plan_type IN ('starter', 'unlimited')),
+  status TEXT DEFAULT 'active',
+  started_at TIMESTAMP,
+  expires_at TIMESTAMP
+)
+
 -- Niño (un dispositivo = un niño)
 children (
   id UUID PRIMARY KEY,
@@ -418,6 +455,10 @@ children (
   age INT,
   device_id TEXT UNIQUE,
   parent_id UUID REFERENCES parents(id),
+  subscription_id UUID REFERENCES subscriptions(id),
+  plan_type TEXT CHECK (plan_type IN ('starter', 'unlimited')),
+  daily_ai_questions INT DEFAULT 0,
+  daily_question_reset_at DATE,
   created_at TIMESTAMP
 )
 
@@ -511,7 +552,9 @@ factor_de_facilidad ajustado según:
 
 **Gestión:**
 - Activar/desactivar cartuchos disponibles en el dispositivo
-- Configurar límite diario de tiempo (ej. 30 min/día)
+- Configurar límite diario de **tiempo** (ej. 30 min/día) — control adicional del padre, independiente del plan
+- El límite de **30 preguntas/día a la IA** en Starter es **por plan** (no configurable por el padre)
+- Unlimited: preguntas ilimitadas a Mati
 - Programar horarios permitidos (ej. solo después de las 4pm)
 - Recibir notificación cuando el niño completa una sesión
 
@@ -577,13 +620,19 @@ Asumiendo sesión promedio de **10 minutos**, ~20 interacciones del niño:
 | Servicio | Consumo estimado | Costo estimado |
 |----------|-----------------|----------------|
 | Whisper STT | 20 clips × ~5s = 100s de audio | ~$0.010 USD |
-| GPT-4o-mini | 20 turnos × ~500 tokens = 10K tokens | ~$0.006 USD |
-| ElevenLabs TTS | 20 respuestas × ~80 chars = 1,600 chars | ~$0.005 USD |
+| GPT-4o-mini | 20 turnos × ~2,930 tokens input + 100 output | ~$0.010 USD |
+| OpenAI TTS | 20 respuestas × ~80 chars = 1,600 chars | ~$0.024 USD |
 | Supabase queries | 20 queries vector + 20 writes | Incluido en plan |
-| **Total por sesión** | | **~$0.02–0.03 USD** |
+| **Total por sesión** | | **~$0.044 USD** |
 
-**Costo mensual por niño activo** (15 sesiones/mes): ~$0.30–0.45 USD  
-**Margen con suscripción Starter** (149 MXN ≈ $8 USD): **~97% de margen sobre API costs**
+**Costo por interacción (1 pregunta):** ~$0.0022 USD (~$0.04 MXN)
+
+**Escenario Starter (tope 30 preguntas/día):**
+- 30 preguntas/día × 30 días = **900 interacciones/mes**
+- Costo máximo mensual: **~$1.98 USD** (~$36 MXN)
+- Con suscripción Starter (149 MXN ≈ $8 USD): **~80%+ de margen** incluso con uso diario al límite
+
+**Costo mensual por niño activo** (15 sesiones/mes, ~20 preguntas/sesión): ~$0.66 USD (~$12 MXN)
 
 ---
 
@@ -610,7 +659,7 @@ Asumiendo sesión promedio de **10 minutos**, ~20 interacciones del niño:
 │    4. Build prompt (system + RAG + history)         │
 │    5. GPT-4o-mini → respuesta texto                 │
 │    6. Moderation API (output)                       │
-│    7. ElevenLabs → MP3 de Mati                      │
+│    7. OpenAI TTS → MP3 de Mati                      │
 │    8. Guardar interacción en Supabase               │
 │    9. Devolver MP3 + expresión al dispositivo       │
 └─────────────────────────────────────────────────────┘

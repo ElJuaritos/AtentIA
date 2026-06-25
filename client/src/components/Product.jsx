@@ -11,11 +11,11 @@ import IconBox from './IconBox';
 
 const FEATURES = [
   { icon: Headphones, title: 'Audio sin pantalla', desc: 'Sin luz azul. Sin feeds adictivos.', color: 'bg-coral/10 text-coral' },
-  { icon: Bot, title: 'IA que escucha', desc: 'Tu hijo pregunta. Mati responde.', color: 'bg-mint/20 text-mint' },
-  { icon: Download, title: 'Contenido descargable', desc: 'Cuentos, matemáticas, ciencia, idiomas.', color: 'bg-gold/20 text-navy' },
+  { icon: Bot, title: 'IA que escucha', desc: 'Tu hijo pregunta. Mati responde.', color: 'bg-mint/20 text-olive' },
+  { icon: Download, title: 'Contenido descargable', desc: 'Cuentos, matemáticas, ciencia, idiomas.', color: 'bg-olive/20 text-navy' },
   { icon: Smartphone, title: 'App para padres', desc: 'Sigue el progreso, descarga contenido y configura horarios.', color: 'bg-navy/5 text-navy' },
   { icon: Shield, title: 'Privacidad primero', desc: 'La voz se queda en el dispositivo. Siempre.', color: 'bg-coral/10 text-coral' },
-  { icon: WifiOff, title: 'Funciona sin wifi', desc: 'No necesitas internet para aprender.', color: 'bg-mint/20 text-mint' },
+  { icon: WifiOff, title: 'Funciona sin wifi', desc: 'No necesitas internet para aprender.', color: 'bg-mint/20 text-olive' },
 ];
 
 export default function Product() {
@@ -28,7 +28,7 @@ export default function Product() {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-14"
         >
-          <p className="text-mint font-semibold text-xs sm:text-sm uppercase tracking-wide mb-2">Conoce Mati</p>
+          <p className="text-olive font-semibold text-xs sm:text-sm uppercase tracking-wide mb-2">Conoce Mati</p>
           <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy px-2">
             Aprendizaje que se escucha, no se scrollea
           </h2>

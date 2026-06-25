@@ -67,7 +67,7 @@ export default function Navbar() {
         <div className="hidden xl:block shrink-0">
           <button
             onClick={() => scrollTo('#waitlist')}
-            className="bg-coral text-white px-5 md:px-6 py-2 md:py-2.5 rounded-full text-sm font-semibold hover:shadow-coral transition-shadow whitespace-nowrap"
+            className="bg-olive text-white px-5 md:px-6 py-2 md:py-2.5 rounded-full text-sm font-semibold hover:shadow-olive transition-shadow whitespace-nowrap"
           >
             Acceso anticipado
           </button>
@@ -105,7 +105,7 @@ export default function Navbar() {
               <li className="pt-2 pb-1">
                 <button
                   onClick={() => scrollTo('#waitlist')}
-                  className="w-full bg-coral text-white px-6 py-3.5 rounded-full font-semibold text-base"
+                  className="w-full bg-olive text-white px-6 py-3.5 rounded-full font-semibold text-base"
                 >
                   Acceso anticipado
                 </button>

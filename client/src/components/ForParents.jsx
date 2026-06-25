@@ -71,7 +71,7 @@ function PhoneMockup() {
 
 export default function ForParents() {
   return (
-    <SectionWrapper id="padres" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-coral/15 via-coral/10 to-gold/10">
+    <SectionWrapper id="padres" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-coral/15 via-coral/10 to-olive/10">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -106,7 +106,7 @@ export default function ForParents() {
                 className="flex items-start gap-3 bg-white/60 backdrop-blur-sm rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4"
               >
                 <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-mint/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check size={12} className="text-mint sm:w-3.5 sm:h-3.5" strokeWidth={3} />
+                  <Check size={12} className="text-olive sm:w-3.5 sm:h-3.5" strokeWidth={3} />
                 </span>
                 <span className="text-navy font-medium text-sm sm:text-base leading-snug">{feature}</span>
               </motion.li>

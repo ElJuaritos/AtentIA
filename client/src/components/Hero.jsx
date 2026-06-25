@@ -1,5 +1,5 @@
 /**
- * Hero principal — titular animado, dispositivo flotante y badges responsivos.
+ * Hero principal — mensaje problem-first, dispositivo flotante y badges responsivos.
  */
 import { motion } from 'framer-motion';
 import { Mic, BookOpen, Globe, BarChart3 } from 'lucide-react';
@@ -7,19 +7,23 @@ import { mvpProducto } from '../assets/brandImages';
 import AuroraBackground from './AuroraBackground';
 import IconBox from './IconBox';
 
-const HEADLINE = 'El primer compañero de aprendizaje que te responde.';
+const HEADLINE = 'Tu hijo pasa horas frente a una pantalla. ¿Pero cuánto aprende?';
+const SUBHEADLINE =
+  'Videos y juegos pasivos no enseñan. Los niños necesitan escuchar, preguntar y pensar — no solo mirar. Mati es la alternativa: cuentos, tutor de IA y aprendizaje activo, sin celular.';
+
 const BADGES = [
   { icon: Mic, text: 'Voz con IA', color: 'bg-coral/10 text-coral' },
-  { icon: BookOpen, text: '500+ historias', color: 'bg-gold/20 text-navy' },
-  { icon: Globe, text: 'Multi-idioma', color: 'bg-mint/20 text-mint' },
+  { icon: BookOpen, text: '500+ historias', color: 'bg-olive/20 text-navy' },
+  { icon: Globe, text: 'Multi-idioma', color: 'bg-mint/20 text-olive' },
   { icon: BarChart3, text: 'Seguimiento', color: 'bg-navy/5 text-navy' },
 ];
 
+/** Badges alrededor del dispositivo; offsets izquierdos moderados en lg para no invadir la columna de texto. */
 const badgePositions = [
-  'md:top-4 md:-left-4 lg:-left-12',
-  'md:top-1/4 md:-right-4 lg:-right-16',
-  'md:bottom-1/4 md:-left-6 lg:-left-20',
-  'md:bottom-8 md:-right-2 lg:-right-10',
+  'md:top-4 md:-left-4 lg:-left-6',
+  'md:top-1/4 md:-right-4 lg:-right-12',
+  'md:bottom-1/4 md:-left-4 lg:-left-6',
+  'md:bottom-8 md:-right-2 lg:-right-8',
 ];
 
 function BadgeChip({ badge, className = '' }) {
@@ -41,15 +45,15 @@ export default function Hero() {
     <section className="relative min-h-[100dvh] flex items-center pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden bg-gradient-to-b from-offwhite via-offwhite to-mint/10">
       <AuroraBackground />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
-        <div className="order-2 lg:order-1 text-center lg:text-left">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-x-14 xl:gap-x-20 lg:gap-y-12 items-center">
+        <div className="order-2 lg:order-1 text-center lg:text-left lg:pr-6 xl:pr-8 relative z-10">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-coral font-semibold text-xs sm:text-sm md:text-base mb-3 sm:mb-4 tracking-wide uppercase"
           >
-            Learn out loud.
+            Sin pantallas. Con propósito.
           </motion.p>
 
           <h1 className="font-heading font-extrabold text-[1.65rem] leading-[1.15] xs:text-3xl sm:text-4xl md:text-[2.75rem] lg:text-5xl xl:text-6xl text-navy mb-4 sm:mb-6">
@@ -58,7 +62,7 @@ export default function Hero() {
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + i * 0.08, duration: 0.4 }}
+                transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
                 className="inline-block mr-[0.25em] mb-[0.1em]"
               >
                 {word}
@@ -72,9 +76,7 @@ export default function Hero() {
             transition={{ delay: 1.2, duration: 0.6 }}
             className="text-text/70 text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0"
           >
-            Mati es un dispositivo sin pantalla que lee cuentos, responde las preguntas
-            de tu hijo con IA y crece con él — desde historias para dormir hasta matemáticas,
-            idiomas y mucho más.
+            {SUBHEADLINE}
           </motion.p>
 
           <motion.div
@@ -85,7 +87,7 @@ export default function Hero() {
           >
             <a
               href="#waitlist"
-              className="inline-flex justify-center bg-coral text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-semibold hover:shadow-coral transition-shadow w-full xs:w-auto"
+              className="inline-flex justify-center bg-olive text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-semibold hover:shadow-olive transition-shadow w-full xs:w-auto"
             >
               Acceso anticipado
             </a>
@@ -102,9 +104,9 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.7 }}
-          className="order-1 lg:order-2 relative flex flex-col items-center"
+          className="order-1 lg:order-2 relative flex flex-col items-center lg:items-end w-full"
         >
-          <div className="relative flex justify-center w-full max-w-[280px] sm:max-w-none">
+          <div className="relative flex justify-center lg:justify-end w-full max-w-[280px] sm:max-w-none lg:max-w-md lg:ml-auto">
             <motion.img
               src={mvpProducto}
               alt="Dispositivo MatIA — aprendizaje sin pantalla"
@@ -126,7 +128,7 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Badges en grid para móvil e iPad portrait */}
+          {/* Badges en grid solo en móvil */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

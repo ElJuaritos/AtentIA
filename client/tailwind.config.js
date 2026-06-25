@@ -12,21 +12,22 @@ export default {
     },
     extend: {
       colors: {
-        navy: '#0D1B2A',
-        coral: '#FF6B6B',
-        gold: '#FFD93D',
-        mint: '#6BCB77',
-        offwhite: '#F9F7F4',
-        text: '#1A1A2E',
+        navy: '#111E31',
+        coral: '#FFAEB2',
+        mint: '#B2D7C8',
+        olive: '#658E74',
+        offwhite: '#FAFAFA',
+        text: '#111E31',
       },
       fontFamily: {
         heading: ['Nunito', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
       },
       boxShadow: {
-        soft: '0 8px 32px rgba(13, 27, 42, 0.08)',
-        glow: '0 0 40px rgba(107, 203, 119, 0.35)',
-        coral: '0 8px 24px rgba(255, 107, 107, 0.35)',
+        soft: '0 8px 32px rgba(17, 30, 49, 0.08)',
+        glow: '0 0 40px rgba(178, 215, 200, 0.35)',
+        coral: '0 8px 24px rgba(255, 174, 178, 0.35)',
+        olive: '0 8px 24px rgba(101, 142, 116, 0.35)',
       },
       animation: {
         float: 'float 3s ease-in-out infinite',

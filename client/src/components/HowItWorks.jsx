@@ -51,7 +51,7 @@ export default function HowItWorks() {
           {/* Línea vertical móvil / iPad portrait */}
           <div className="md:hidden absolute left-[1.35rem] sm:left-6 top-0 bottom-0 w-0.5 bg-navy/10">
             <motion.div
-              className="w-full bg-coral origin-top"
+              className="w-full bg-olive origin-top"
               style={{ scaleY: lineProgress, height: '100%' }}
             />
           </div>
@@ -59,13 +59,13 @@ export default function HowItWorks() {
           {/* Línea horizontal tablet landscape / desktop */}
           <div className="hidden md:block absolute top-6 lg:top-12 left-[12%] right-[12%] h-1">
             <svg className="w-full h-1" preserveAspectRatio="none">
-              <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(13,27,42,0.1)" strokeWidth="3" />
+              <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(17,30,49,0.1)" strokeWidth="3" />
               <motion.line
                 x1="0"
                 y1="2"
                 x2="100%"
                 y2="2"
-                stroke="#FF6B6B"
+                stroke="#658E74"
                 strokeWidth="3"
                 strokeLinecap="round"
                 style={{ pathLength: lineProgress }}

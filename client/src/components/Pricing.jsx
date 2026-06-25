@@ -11,7 +11,11 @@ const PLANS = [
     name: 'Mati Starter',
     devicePrice: 1499,
     monthlyPrice: 149,
-    features: ['50 cuentos incluidos', '1 paquete de idioma', 'App para padres básica'],
+    features: [
+      'Acceso completo a todos los cuentos',
+      'Hasta 30 preguntas al día a Mati',
+      'App para padres con reportes',
+    ],
     popular: false,
   },
   {
@@ -19,10 +23,9 @@ const PLANS = [
     devicePrice: 1499,
     monthlyPrice: 299,
     features: [
-      'Contenido ilimitado',
-      'Todos los idiomas',
-      'Modo tutor IA avanzado',
-      'Soporte prioritario',
+      'Acceso completo a todos los cuentos',
+      'Preguntas ilimitadas a Mati',
+      'App para padres con reportes',
     ],
     popular: true,
   },
@@ -45,9 +48,12 @@ export default function Pricing() {
           viewport={{ once: true }}
           className="text-center mb-8 sm:mb-10"
         >
-          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy mb-5 sm:mb-6 px-2">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy mb-3 sm:mb-4 px-2">
             Precios simples. Sin sorpresas.
           </h2>
+          <p className="text-text/60 text-sm sm:text-base max-w-lg mx-auto mb-5 sm:mb-6 px-2">
+            Mismo contenido en ambos planes. Elige según cuántas preguntas quiera hacer tu hijo al día.
+          </p>
 
           <div className="inline-flex flex-col xs:flex-row items-stretch xs:items-center gap-2 xs:gap-3 bg-white rounded-2xl xs:rounded-full p-2 sm:p-1.5 shadow-soft w-full xs:w-auto max-w-xs xs:max-w-none mx-auto">
             <button
@@ -65,7 +71,7 @@ export default function Pricing() {
               }`}
             >
               Anual
-              <span className="block xs:inline xs:ml-1 text-xs text-mint font-bold mt-0.5 xs:mt-0">
+              <span className="block xs:inline xs:ml-1 text-xs text-olive font-bold mt-0.5 xs:mt-0">
                 2 meses gratis
               </span>
             </button>
@@ -89,7 +95,7 @@ export default function Pricing() {
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-coral text-white text-xs font-bold px-3 sm:px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-olive text-white text-xs font-bold px-3 sm:px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
                   <Star size={12} fill="white" /> Popular
                 </span>
               )}
@@ -108,7 +114,7 @@ export default function Pricing() {
                   <span className="text-text/50 text-sm"> /mes</span>
                 </p>
                 {annual && (
-                  <p className="text-mint text-xs font-semibold mt-1">
+                  <p className="text-olive text-xs font-semibold mt-1">
                     Facturado anualmente — ahorras 2 meses
                   </p>
                 )}
@@ -117,7 +123,7 @@ export default function Pricing() {
               <ul className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-xs sm:text-sm text-text/70">
-                    <Check size={16} className="text-mint shrink-0 mt-0.5" strokeWidth={3} />
+                    <Check size={16} className="text-olive shrink-0 mt-0.5" strokeWidth={3} />
                     {f}
                   </li>
                 ))}
@@ -127,7 +133,7 @@ export default function Pricing() {
                 href="#waitlist"
                 className={`block text-center py-3 rounded-full font-semibold text-sm transition-shadow ${
                   plan.popular
-                    ? 'bg-coral text-white hover:shadow-coral'
+                    ? 'bg-olive text-white hover:shadow-olive'
                     : 'bg-navy/5 text-navy hover:bg-navy/10'
                 }`}
               >

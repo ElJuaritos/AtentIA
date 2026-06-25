@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const circles = [
   { color: 'bg-mint/30', size: 'w-48 h-48 sm:w-72 sm:h-72', top: '10%', left: '5%', delay: 0 },
   { color: 'bg-coral/20', size: 'w-56 h-56 sm:w-96 sm:h-96', top: '40%', left: '55%', delay: 1 },
-  { color: 'bg-gold/20', size: 'w-40 h-40 sm:w-64 sm:h-64', top: '70%', left: '15%', delay: 2 },
+  { color: 'bg-olive/20', size: 'w-40 h-40 sm:w-64 sm:h-64', top: '70%', left: '15%', delay: 2 },
 ];
 
 export default function AuroraBackground({ className = '' }) {
