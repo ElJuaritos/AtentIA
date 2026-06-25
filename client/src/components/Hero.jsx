@@ -3,7 +3,7 @@
  */
 import { motion } from 'framer-motion';
 import { Mic, BookOpen, Globe, BarChart3 } from 'lucide-react';
-import { matIAProducto } from '../assets/brandImages';
+import matIAProducto from '../assets/MATIA-FNAL-Photoroom.png';
 import AuroraBackground from './AuroraBackground';
 import IconBox from './IconBox';
 
@@ -89,7 +89,7 @@ export default function Hero() {
               href="#waitlist"
               className="inline-flex justify-center bg-olive text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-semibold hover:shadow-olive transition-shadow w-full xs:w-auto"
             >
-              Acceso anticipado
+              Lista de espera
             </a>
             <a
               href="#como-funciona"

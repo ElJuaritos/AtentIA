@@ -5,10 +5,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 import DeviceMockup from './DeviceMockup';
-import { useCountUp } from '../hooks/useCountUp';
 import { apiUrl, getWaitlistErrorMessage, isApiConfigured } from '../config/api';
 
-const BASE_COUNT = 847;
 const NAME_MAX = 100;
 const EMAIL_MAX = 254;
 
@@ -43,8 +41,6 @@ export default function Waitlist() {
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
-  const [totalCount, setTotalCount] = useState(BASE_COUNT);
-  const { value: displayCount } = useCountUp(totalCount, 2500);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +74,6 @@ export default function Waitlist() {
       const data = await res.json();
 
       if (data.success) {
-        setTotalCount(BASE_COUNT + data.position);
         setStatus({
           type: 'success',
           message: `¡Listo! Eres el #${data.position} en la lista de espera.`,
@@ -180,10 +175,8 @@ export default function Waitlist() {
             Sin spam. Cancela cuando quieras.
           </span>
           <span className="hidden xs:inline text-white/30">·</span>
-          <span className="text-white/70 text-center xs:text-left">
-            Únete a{' '}
-            <span className="font-heading font-bold text-mint">{displayCount.toLocaleString('es-MX')}</span>{' '}
-            familias en espera.
+          <span className="text-white/70 text-center xs:text-left font-medium">
+            Únete a las familias en espera.
           </span>
         </motion.p>
       </div>
