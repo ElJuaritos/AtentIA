@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 import DeviceMockup from './DeviceMockup';
 import { useCountUp } from '../hooks/useCountUp';
-import { apiUrl } from '../config/api';
+import { apiUrl, getWaitlistErrorMessage, isApiConfigured } from '../config/api';
 
 const BASE_COUNT = 847;
 const NAME_MAX = 100;
@@ -52,6 +52,14 @@ export default function Waitlist() {
     setStatus({ type: '', message: '' });
 
     try {
+      if (import.meta.env.PROD && !isApiConfigured) {
+        setStatus({
+          type: 'error',
+          message: 'El formulario aún no está conectado al backend. Configura VITE_API_URL en GitHub Secrets.',
+        });
+        return;
+      }
+
       const res = await fetch(apiUrl('/api/waitlist'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -61,6 +69,12 @@ export default function Waitlist() {
           website: honeypot,
         }),
       });
+
+      if (!res.ok) {
+        setStatus({ type: 'error', message: getWaitlistErrorMessage(res.status) });
+        return;
+      }
+
       const data = await res.json();
 
       if (data.success) {

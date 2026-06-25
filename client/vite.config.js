@@ -33,6 +33,17 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: 'http://localhost:3001',
           changeOrigin: true,
+          configure: (proxy) => {
+            proxy.on('error', (_err, _req, res) => {
+              if (res?.writeHead) {
+                res.writeHead(503, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({
+                  success: false,
+                  message: 'API local no disponible. Ejecuta npm run dev desde AtentIA/.',
+                }));
+              }
+            });
+          },
         },
       },
     },

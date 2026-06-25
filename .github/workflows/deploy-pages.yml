@@ -36,6 +36,10 @@ jobs:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_BASE_PATH: ${{ secrets.VITE_BASE_PATH }}
         run: |
+          if [ -z "$VITE_API_URL" ]; then
+            echo "::error::VITE_API_URL no está configurado en GitHub Secrets. La waitlist fallará con 405 en GitHub Pages."
+            exit 1
+          fi
           if [ -z "$VITE_BASE_PATH" ]; then
             export VITE_BASE_PATH="/${{ github.event.repository.name }}/"
           fi
