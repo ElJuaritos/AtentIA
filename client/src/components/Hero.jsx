@@ -3,13 +3,13 @@
  */
 import { motion } from 'framer-motion';
 import { Mic, BookOpen, Globe, BarChart3 } from 'lucide-react';
-import { mvpProducto } from '../assets/brandImages';
+import { matIAProducto } from '../assets/brandImages';
 import AuroraBackground from './AuroraBackground';
 import IconBox from './IconBox';
 
 const HEADLINE = 'Tu hijo pasa horas frente a una pantalla. ¿Pero cuánto aprende?';
 const SUBHEADLINE =
-  'Videos y juegos pasivos no enseñan. Los niños necesitan escuchar, preguntar y pensar — no solo mirar. Mati es la alternativa: cuentos, tutor de IA y aprendizaje activo, sin celular.';
+  'Videos y juegos pasivos no enseñan. Los niños necesitan escuchar, preguntar y pensar — no solo mirar. MatIA es la alternativa: cuentos, tutor de IA y aprendizaje activo, sin celular.';
 
 const BADGES = [
   { icon: Mic, text: 'Voz con IA', color: 'bg-coral/10 text-coral' },
@@ -108,7 +108,7 @@ export default function Hero() {
         >
           <div className="relative flex justify-center lg:justify-end w-full max-w-[280px] sm:max-w-none lg:max-w-md lg:ml-auto">
             <motion.img
-              src={mvpProducto}
+              src={matIAProducto}
               alt="Dispositivo MatIA — aprendizaje sin pantalla"
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}

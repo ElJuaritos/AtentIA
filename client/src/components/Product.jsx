@@ -6,7 +6,7 @@ import {
   Headphones, Bot, Download, Smartphone, Shield, WifiOff,
 } from 'lucide-react';
 import SectionWrapper, { staggerContainer, staggerItem } from './SectionWrapper';
-import { mvpProducto } from '../assets/brandImages';
+import { matIAProducto } from '../assets/brandImages';
 import IconBox from './IconBox';
 
 const FEATURES = [
@@ -43,7 +43,7 @@ export default function Product() {
             className="flex justify-center order-1 md:order-none"
           >
             <img
-              src={mvpProducto}
+              src={matIAProducto}
               alt="Dispositivo MatIA — aprendizaje sin pantalla"
               className="w-full max-w-[16rem] sm:max-w-xs md:max-w-sm lg:max-w-md h-auto object-contain drop-shadow-lg"
             />
