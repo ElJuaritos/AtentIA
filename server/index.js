@@ -48,11 +48,12 @@ const apiLimiter = rateLimit({
 });
 
 const waitlistLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: isProd ? 5 : 50,
+  windowMs: 15 * 60 * 1000,
+  max: isProd ? 15 : 50,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Límite de registros alcanzado. Intenta en una hora.' },
+  skipFailedRequests: true,
+  message: { success: false, message: 'Demasiados intentos. Espera unos minutos e intenta de nuevo.' },
 });
 
 app.use('/api', apiLimiter);
@@ -84,6 +85,11 @@ app.listen(PORT, () => {
     process.env.GOOGLE_SHEETS_WEBHOOK_URL?.trim()
     && process.env.GOOGLE_SHEETS_SECRET?.trim(),
   );
+  const supabaseReady = Boolean(
+    process.env.SUPABASE_URL?.trim()
+    && process.env.SUPABASE_SERVICE_ROLE_KEY?.trim(),
+  );
   console.log(`Mati API (AtentIA) running on port ${PORT} [${isProd ? 'production' : 'development'}]`);
-  console.log(`Google Sheets: ${sheetsReady ? 'conectado' : 'no configurado (solo waitlist.json)'}`);
+  console.log(`Supabase waitlist: ${supabaseReady ? 'conectado' : 'NO CONFIGURADO — agrega SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY en Render'}`);
+  console.log(`Google Sheets: ${sheetsReady ? 'conectado' : 'no configurado'}`);
 });

@@ -19,6 +19,10 @@ export function getWaitlistErrorMessage(status) {
       : 'El formulario no está conectado al backend. Configura VITE_API_URL en GitHub Secrets y redespliega.';
   }
 
+  if (status === 429) {
+    return 'Demasiados intentos desde tu conexión. Espera unos minutos e intenta de nuevo.';
+  }
+
   if (status >= 500) {
     return import.meta.env.DEV
       ? 'No pudimos conectar con la API local (puerto 3001). ¿Está corriendo el servidor?'

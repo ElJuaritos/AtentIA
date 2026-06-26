@@ -67,7 +67,14 @@ export default function Waitlist() {
       });
 
       if (!res.ok) {
-        setStatus({ type: 'error', message: getWaitlistErrorMessage(res.status) });
+        let message = getWaitlistErrorMessage(res.status);
+        try {
+          const errData = await res.json();
+          if (errData.message) message = errData.message;
+        } catch {
+          // respuesta no JSON — usar mensaje por status
+        }
+        setStatus({ type: 'error', message });
         return;
       }
 
