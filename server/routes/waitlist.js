@@ -1,35 +1,18 @@
 /**
- * Ruta POST /api/waitlist — registra emails con validación y escritura atómica.
+ * Ruta POST /api/waitlist — registra emails con validación y persistencia en Supabase.
+ * Ruta GET  /api/waitlist — devuelve el conteo total de la lista.
  */
 import { Router } from 'express';
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { createClient } from '@supabase/supabase-js';
 import { isValidEmail, sanitizeName, normalizeEmail } from '../utils/validation.js';
 import { appendToGoogleSheet } from '../services/googleSheets.js';
 
 const router = Router();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const WAITLIST_PATH = path.join(__dirname, '..', 'waitlist.json');
 
-/** Lee la lista de espera desde disco. */
-async function readWaitlist() {
-  try {
-    const data = await fs.readFile(WAITLIST_PATH, 'utf-8');
-    const parsed = JSON.parse(data);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (err) {
-    if (err.code === 'ENOENT') return [];
-    throw err;
-  }
-}
-
-/** Persiste la lista con escritura atómica para evitar corrupción. */
-async function writeWaitlist(entries) {
-  const tmpPath = `${WAITLIST_PATH}.tmp`;
-  await fs.writeFile(tmpPath, JSON.stringify(entries, null, 2), 'utf-8');
-  await fs.rename(tmpPath, WAITLIST_PATH);
-}
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+);
 
 router.post('/', async (req, res) => {
   try {
@@ -47,26 +30,34 @@ router.post('/', async (req, res) => {
     const normalizedEmail = normalizeEmail(email);
     const safeName = sanitizeName(name);
 
-    const waitlist = await readWaitlist();
-    const exists = waitlist.some((entry) => entry.email === normalizedEmail);
+    // Verificar si el email ya existe
+    const { data: existing } = await supabase
+      .from('waitlist')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .maybeSingle();
 
-    if (exists) {
-      const position = waitlist.findIndex((e) => e.email === normalizedEmail) + 1;
-      return res.json({ success: true, position, message: 'Ya estás en la lista.' });
+    if (existing) {
+      return res.json({ success: true, position: existing.id, message: 'Ya estás en la lista.' });
     }
 
-    const entry = {
-      email: normalizedEmail,
-      name: safeName,
-      joinedAt: new Date().toISOString(),
-    };
+    // Insertar nuevo registro y obtener su id (posición global)
+    const { data: inserted, error } = await supabase
+      .from('waitlist')
+      .insert({ email: normalizedEmail, name: safeName })
+      .select('id')
+      .single();
 
-    waitlist.push(entry);
-    await writeWaitlist(waitlist);
+    if (error) throw error;
 
-    await appendToGoogleSheet(entry, waitlist.length);
+    // Obtener conteo total para pasarlo a Google Sheets
+    const { count } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true });
 
-    res.json({ success: true, position: waitlist.length });
+    await appendToGoogleSheet({ email: normalizedEmail, name: safeName, joinedAt: new Date().toISOString() }, count);
+
+    res.json({ success: true, position: inserted.id });
   } catch (error) {
     console.error('Waitlist error:', error.message);
     res.status(500).json({ success: false, message: 'Error al registrar.' });
@@ -76,8 +67,13 @@ router.post('/', async (req, res) => {
 /** Solo expone el conteo, nunca emails ni datos personales. */
 router.get('/', async (_req, res) => {
   try {
-    const waitlist = await readWaitlist();
-    res.json({ count: waitlist.length });
+    const { count, error } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true });
+
+    if (error) throw error;
+
+    res.json({ count });
   } catch {
     res.status(500).json({ success: false, message: 'Error al consultar.' });
   }
