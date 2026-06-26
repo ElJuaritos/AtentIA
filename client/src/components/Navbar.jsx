@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: 'Cómo funciona', href: '#como-funciona' },
   { label: 'Aprende', href: '#contenido' },
   { label: 'Para padres', href: '#padres' },
+  { label: 'Guía de transición', href: '#guia-padres' },
   { label: 'Precios', href: '#precios' },
 ];
 
