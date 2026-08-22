@@ -8,18 +8,22 @@
 
 | Campo | Detalle |
 |-------|---------|
-| **Equipo** | Multidisciplinario de bootcamp de emprendimiento del ITAM |
+| **Equipo** | León (data), Andrés (optimización de materiales), Jorge (diseño de aprendizaje), Emilio (IA), Alexa (growth) — bootcamp ITAM |
 | **Premio** | El equipo ganador va al MIT (Delta V demo day). El pitch final es en **inglés** ante un jurado calificado |
 | **Empresa** | AtentIA |
 | **Producto** | matIA |
-| **Estado actual** | Customer discovery (Disciplined Entrepreneurship de Aulet, Pasos 1–5) + construcción de MVP/prototipo, documentos y estudio de mercado |
+| **Estado actual** | Customer discovery (Disciplined Entrepreneurship de Aulet, Pasos 1–5) + MVP/prototipo + **25 entrevistas** + waitlist activa |
 | **Preferencia de estilo** | Respuestas concisas y directas, sin relleno |
 
 ---
 
-## 2. Qué es matIA (definición del producto)
+## 2. Misión y qué es matIA
 
-**Consola educativa audio-first** con tutor de IA para niños de **5 a 10 años**. Estilo retro (Game Boy / Yoto). Pantalla-cero de entretenimiento; el aprendizaje es activo y medible.
+**Misión:** Proteger la atención de los niños transformando el tiempo de pantalla improductivo en descubrimiento activo, seguro y personalizado.
+
+**Producto:** matIA es el **primer mentor físico con IA** para niños — pantalla mínima (e-ink sin luz), diseñado para fomentar aprendizaje en el mundo real mientras protege su atención. Un mentor que **crece con el niño**.
+
+**Consola educativa audio-first** con tutor de IA para niños de **4 a 10 años** (beachhead **4–6**). Estilo retro (Game Boy / Yoto). El aprendizaje es **activo, medible y basado en evidencia científica**.
 
 ### Forma y diseño
 
@@ -60,30 +64,37 @@
 - Recall activo, repetición espaciada, reforzadores éticos
 - **Regla:** se premia terminar, no empezar
 
-### Modelo de negocio (precios ilustrativos)
+### Modelo de negocio (precios del pitch)
 
 | Concepto | Precio | Incluye |
 |----------|--------|---------|
-| Dispositivo | ~1,499 MXN (one-time) | Hardware matIA |
-| Suscripción Starter | 149 MXN/mes | Todos los cuentos + **30 preguntas/día** a la IA |
-| Suscripción Unlimited | 299 MXN/mes | Todos los cuentos + **preguntas ilimitadas** a la IA |
+| Dispositivo matIA | ~2,000 MXN (one-time) | Hardware + **1 mes de suscripción gratis** |
+| Suscripción | 179 MXN/mes | Contenido ilimitado + preguntas ilimitadas a Mati + insights de todas las lecciones |
+| Lección por tema | 89 MXN por tema | Contenido del tema elegido + preguntas limitadas a Mati de ese tema + insights de lecciones compradas |
 
-> **El único diferenciador entre planes es el límite diario de preguntas a Mati.** Ambos incluyen acceso completo al catálogo de cuentos y app de padres con reportes.
+> Durante el mes gratis incluido con el dispositivo solo se guarda **una lección iniciada**; las demás temáticas se compran por separado (89 MXN/tema) o se accede con la suscripción completa (179 MXN/mes).
 
-**Beachhead:** hogares premium en México (CDMX) → media → Latinoamérica (ventaja de contenido en español).
+**Early adopter:** primeras 100 familias en waitlist → **3 meses gratis** de suscripción.
+
+**Beachhead:** niños **4–6 años**, hogares media-alta y premium en México (CDMX) → Américas → edades **4–10** (ventaja: contenido en español).
 
 ---
 
-## 3. Estudio de mercado (TAM/SAM/SOM) — cifras 2024–2025
+## 3. Estudio de mercado (TAM/SAM/SOM) — cifras del pitch
 
 | Métrica | Valor | Notas |
 |---------|-------|-------|
-| **TAM** | ≈ 187 mil M USD | EdTech global (Grand View Research) |
-| **TAM operativo** | ≈ ~18 mil M USD | Juguetes inteligentes 14.4 mil M + tutores de IA 3.55 mil M; crece doble dígito |
-| **SAM** | ≈ 3.2 mil M USD | Reproductores de audio para niños (Marketintelo). Validado: Tonies ~519 M USD (2024, +33%) y Yoto ~128 M USD (2024, +86%) |
-| **SOM (México premium)** | EdTech MX 4.4 mil M USD (2024) → 14.4 mil M (2033, CAGR 12.8%; IMARC) | ~12.9 M niños 6–11 (CONAPO/INEGI 2024). Techo premium ~165 M USD/año; captura temprana ~1.9–3.8 M USD/año |
+| **SOM (beachhead México)** | ≈ 157 M USD/año | Niños **4–6 años**, hogares media-alta y premium |
+| **SAM (Américas)** | ≈ 1.5 mil M USD/año | Expansión traduciendo y adaptando contenido |
+| **TAM (edades 4–10)** | ≈ 3.6 mil M USD/año | Mercado total al extender matIA a niños 4–10 |
 
-> **Cuidado:** las cifras varían mucho entre firmas; presentarlas como **rangos con fuente**.
+**Validación de categoría:** Tonies ~519 M USD (2024, +33%); Yoto ~128 M USD (2024, +86%).
+
+> **Cuidado:** presentar siempre como **estimaciones con fuente**. Las cifras varían entre firmas.
+
+### Persona del pitch
+
+**María** — trabaja tiempo completo, ama a su hijo **Andrés (5 años)**. Algunas noches, tras un turno de 10 horas, le da la tableta para tener 20 minutos de silencio. Se siente culpable, pero está agotada. matIA le permite terminar una tarea mientras su hijo está **independientemente enganchado en una experiencia diseñada para hacerlo pensar, no scrollear**.
 
 ### Competidores y diferenciación (dónde gana matIA)
 
@@ -98,6 +109,10 @@
 **Posicionamiento:**
 
 > *"matIA = la forma sin pantalla de Yoto + la inteligencia de un tutor de IA + la seguridad que los juguetes de IA no tienen — en español y para México."*
+
+**Cierre del pitch:**
+
+> *"La tecnología no secuestra la atención de los niños. La gana."*
 
 ---
 
@@ -116,7 +131,7 @@
 |------|-------|
 | Celular | 81% |
 | Tableta | 57% |
-| Empezó antes de los 7 | ~67% |
+| Empezó antes de los 6 | ~1 de cada 2 niños (pitch) / ~67% antes de los 7 (PROFECO) |
 | Uso mayormente pasivo (videos+juegos) | ~68% |
 | Control parental | solo 24% (50% no tiene, 21% no lo conoce) |
 | Riesgo #1 percibido: contenido inapropiado | 33.7% |
@@ -166,9 +181,17 @@ Hola Claude. Continúo un proyecto de emprendimiento; aquí está todo el contex
 
 SOY: León, equipo de bootcamp del ITAM. Empresa AtentIA, producto matIA. El ganador va al MIT (Delta V); el pitch final es en INGLÉS ante jurado. Prefiero respuestas concisas y directas.
 
-PRODUCTO matIA: consola educativa audio-first con tutor de IA para niños de 5 a 10 años, estilo retro (Game Boy/Yoto). Pantalla e-ink (tipo Kindle, sin luz). Botón push-to-talk (mic solo al presionar = privacidad). Modelo híbrido: contenido offline tipo cartucho (tarjetas físicas) + IA generativa online. IA acotada (RAG, sin web abierta), sin cámara, carcasa sellada con disipador. App de padres con reportes de aprendizaje. Pedagogía: recall activo + repetición espaciada, sin mecánicas de brain rot. Precio: dispositivo ~1,499 MXN + suscripción Starter 149 MXN/mes (todos los cuentos, 30 preguntas/día a la IA) o Unlimited 299 MXN/mes (todos los cuentos, preguntas ilimitadas). Beachhead: hogares premium en México.
+MISIÓN: Proteger la atención de los niños transformando tiempo de pantalla improductivo en descubrimiento activo, seguro y personalizado.
 
-MERCADO: TAM ~187 mil M USD (EdTech global); TAM operativo ~18 mil M (juguetes inteligentes + tutores IA). SAM ~3.2 mil M USD (audio para niños; validado por Tonies ~519M y Yoto ~128M en 2024). SOM México premium: EdTech MX 4.4 mil M (2024), ~12.9M niños 6-11; captura temprana ~1.9-3.8M USD/año.
+PRODUCTO matIA: primer mentor físico con IA para niños 4-10 años (beachhead 4-6). Consola audio-first estilo Game Boy/Yoto. Pantalla e-ink mínima (sin luz). Push-to-talk (mic solo al presionar). Cartuchos NFC offline + IA online acotada (RAG). Sin cámara. App de padres con reportes y benchmarks de aprendizaje. Pedagogía basada en evidencia: recall activo + repetición espaciada.
+
+PRECIOS: dispositivo ~2,000 MXN (incluye 1 mes gratis) + suscripción 179 MXN/mes (contenido y preguntas ilimitadas) O lecciones por tema 89 MXN c/u.
+
+MERCADO: SOM México beachhead ~157M USD/año (niños 4-6, media-alta+). SAM Américas ~1.5B USD/año. TAM edades 4-10 ~3.6B USD/año.
+
+TRACCIÓN: 25 entrevistas + waitlist activa. Persona: María y Andrés (5 años).
+
+EQUIPO: León (data), Andrés (materiales), Jorge (aprendizaje), Emilio (IA), Alexa (growth).
 
 DIFERENCIACIÓN: vs Yoto/Tonies (audio pasivo) → matIA enseña y mide; vs juguetes de IA Miko/Curio (señalados por Fairplay/PIRG/NBC 2025 por escucha permanente) → matIA tiene push-to-talk e IA acotada; vs Moxie (quebró, dependía de nube) → matIA funciona offline; vs Khanmigo/Synthesis (software en pantalla) → matIA es dispositivo sin pantalla; ventaja: español/MX.
 

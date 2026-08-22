@@ -394,30 +394,36 @@ La pantalla solo se actualiza entre respuestas (no en tiempo real) para preserva
 
 ## 8. Backend y base de datos
 
-### 8.0 Modelo de suscripción y límites
+### 8.0 Modelo de suscripción y acceso a contenido
 
-Ambos planes (**Starter** 149 MXN/mes, **Unlimited** 299 MXN/mes) incluyen acceso completo a todos los cuentos. **El único diferenciador es el límite diario de preguntas a la IA.**
+Modelo alineado con el pitch MIT (jun 2026):
 
-| Plan | Preguntas IA/día | Contenido |
-|------|------------------|-----------|
-| `starter` | **30** (hard limit) | Todos los cuentos |
-| `unlimited` | Sin tope | Todos los cuentos |
+| Plan | Precio | Acceso |
+|------|--------|--------|
+| **Dispositivo** | ~2,000 MXN (one-time) | Hardware + **1 mes de suscripción gratis** |
+| **Suscripción completa** (`full`) | 179 MXN/mes | Contenido ilimitado + preguntas ilimitadas a Mati + insights de todas las lecciones |
+| **Lección por tema** (`topic`) | 89 MXN por tema | Contenido del tema + preguntas limitadas a Mati de ese tema + insights de lecciones compradas |
+
+**Mes gratis incluido con dispositivo:** solo se guarda **una lección iniciada**; demás temáticas requieren compra individual (89 MXN) o suscripción completa (179 MXN/mes).
 
 **Implementación en backend:**
 
-1. Cada niño tiene `plan_type` vinculado a la suscripción del padre
-2. Contador `daily_ai_questions` se incrementa en cada `POST /api/session/query` exitoso
-3. Reset diario a medianoche (timezone `America/Mexico_City`)
-4. **Antes** de llamar a Whisper/LLM: si `plan_type === 'starter'` y `daily_ai_questions >= 30` → devolver audio TTS predefinido: *"¡Hoy ya hicimos muchas preguntas! Mañana seguimos aprendiendo."*
-5. Unlimited: sin verificación de tope
+1. Cada niño tiene `plan_type` vinculado a la suscripción del padre: `full` | `topic_only`
+2. Tabla `purchased_topics` lista los `cartridge_id` comprados (89 MXN c/u)
+3. **Antes** de llamar a Whisper/LLM: verificar que el cartucho activo esté incluido en suscripción `full` o en `purchased_topics`
+4. Si no tiene acceso → devolver audio TTS: *"Este tema no está disponible. Pídele a mamá o papá que lo active en la app."*
+5. Suscripción `full`: sin límite de preguntas ni temas
 
 ```js
 // Pseudocódigo en /api/session/query
-if (child.plan_type === 'starter' && child.daily_ai_questions >= 30) {
-  return { audio: LIMIT_REACHED_MP3, expression: 'sleepy' };
+const hasAccess =
+  child.plan_type === 'full' ||
+  purchasedTopics.includes(activeCartridgeId);
+
+if (!hasAccess) {
+  return { audio: TOPIC_LOCKED_MP3, expression: 'sleepy' };
 }
 // ... pipeline STT → LLM → TTS
-await incrementDailyQuestionCount(child.id);
 ```
 
 ---
@@ -438,14 +444,24 @@ POST   /api/parent/limits          → configura límites de tiempo y cartuchos 
 ### 8.2 Esquema de base de datos (Supabase)
 
 ```sql
--- Suscripción del padre (define plan del dispositivo)
+-- Suscripción del padre
 subscriptions (
   id UUID PRIMARY KEY,
   parent_id UUID REFERENCES parents(id),
-  plan_type TEXT CHECK (plan_type IN ('starter', 'unlimited')),
+  plan_type TEXT CHECK (plan_type IN ('full', 'topic_only', 'trial')),
   status TEXT DEFAULT 'active',
   started_at TIMESTAMP,
   expires_at TIMESTAMP
+)
+
+-- Temas comprados individualmente (89 MXN c/u)
+purchased_topics (
+  id UUID PRIMARY KEY,
+  parent_id UUID REFERENCES parents(id),
+  child_id UUID REFERENCES children(id),
+  cartridge_id TEXT,
+  purchased_at TIMESTAMP,
+  price_mxn INT DEFAULT 89
 )
 
 -- Niño (un dispositivo = un niño)
@@ -456,9 +472,7 @@ children (
   device_id TEXT UNIQUE,
   parent_id UUID REFERENCES parents(id),
   subscription_id UUID REFERENCES subscriptions(id),
-  plan_type TEXT CHECK (plan_type IN ('starter', 'unlimited')),
-  daily_ai_questions INT DEFAULT 0,
-  daily_question_reset_at DATE,
+  plan_type TEXT CHECK (plan_type IN ('full', 'topic_only', 'trial')),
   created_at TIMESTAMP
 )
 
@@ -552,10 +566,9 @@ factor_de_facilidad ajustado según:
 
 **Gestión:**
 - Activar/desactivar cartuchos disponibles en el dispositivo
-- Configurar límite diario de **tiempo** (ej. 30 min/día) — control adicional del padre, independiente del plan
-- El límite de **30 preguntas/día a la IA** en Starter es **por plan** (no configurable por el padre)
-- Unlimited: preguntas ilimitadas a Mati
+- Configurar límite diario de **tiempo** (ej. 30 min/día) — control adicional del padre
 - Programar horarios permitidos (ej. solo después de las 4pm)
+- Gestionar suscripción (179 MXN/mes) o temas comprados (89 MXN c/u)
 - Recibir notificación cuando el niño completa una sesión
 
 ---
@@ -627,10 +640,13 @@ Asumiendo sesión promedio de **10 minutos**, ~20 interacciones del niño:
 
 **Costo por interacción (1 pregunta):** ~$0.0022 USD (~$0.04 MXN)
 
-**Escenario Starter (tope 30 preguntas/día):**
-- 30 preguntas/día × 30 días = **900 interacciones/mes**
-- Costo máximo mensual: **~$1.98 USD** (~$36 MXN)
-- Con suscripción Starter (149 MXN ≈ $8 USD): **~80%+ de margen** incluso con uso diario al límite
+**Escenario suscripción completa (179 MXN/mes, uso intensivo ~600 preguntas/mes):**
+- Costo máximo mensual IA: **~$1.32 USD** (~$24 MXN)
+- Con suscripción 179 MXN (~$10 USD): **~85%+ de margen** sobre costos de API
+
+**Escenario lección por tema (89 MXN, uso moderado ~200 preg/mes):**
+- Costo IA: **~$0.44 USD** (~$8 MXN)
+- Margen saludable por tema según engagement
 
 **Costo mensual por niño activo** (15 sesiones/mes, ~20 preguntas/sesión): ~$0.66 USD (~$12 MXN)
 
